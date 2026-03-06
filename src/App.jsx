@@ -1,21 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Github, Linkedin, Mail } from "lucide-react";
-
-function useRevealOnScroll() {
-  useEffect(() => {
-    const els = document.querySelectorAll("[data-reveal]");
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) e.target.classList.add("reveal-in");
-        }
-      },
-      { threshold: 0.12 },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-}
+import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 
 function useTypeRotate(
   phrases,
@@ -66,8 +50,8 @@ function ProjectCard({
   return (
     <div
       className={[
-        "group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 shadow-sm backdrop-blur transition",
-        "hover:-translate-y-1 hover:border-blue-200 hover:shadow-md",
+        "group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 shadow-sm backdrop-blur transition-all duration-300",
+        "hover:-translate-y-2 hover:border-blue-300 hover:shadow-xl",
         featured ? "sm:col-span-2" : "",
       ].join(" ")}
     >
@@ -78,7 +62,7 @@ function ProjectCard({
             alt=""
             className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent opacity-70 group-hover:opacity-90 transition" />
         </div>
       )}
 
@@ -91,7 +75,8 @@ function ProjectCard({
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
               </div>
             )}
-            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+            <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition">{title}
+            </h3>
           </div>
 
           <div className="flex gap-3 text-sm">
@@ -132,7 +117,24 @@ function ProjectCard({
 
 
 export default function App() {
-  useRevealOnScroll();
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-in");
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
+
+  document.querySelectorAll("[data-reveal]").forEach((el) => {
+    observer.observe(el);
+  });
+
+  return () => observer.disconnect();
+}, []);
 
   const phrases = useMemo(
     () => [
@@ -174,6 +176,8 @@ export default function App() {
       <main id="top" className="mx-auto max-w-5xl px-6 pb-20">
         {/* HERO */}
         <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-900/60">
+          <div className="pointer-events-none absolute -top-32 left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl" />
+
           {/* Background image */}
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -184,7 +188,7 @@ export default function App() {
 
           {/* Content */}
           <div className="relative px-8 py-14 sm:px-12" data-reveal>
-            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+            <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-6xl">
               Hamzah Muhammad
             </h1>
 
@@ -239,6 +243,15 @@ export default function App() {
                 <Linkedin size={16} />
                 LinkedIn
               </a>
+              <a
+                className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
+                href="https://devpost.com/muhammadh31"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink size={16} />
+                Devpost
+              </a>
 
               <a
                 className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
@@ -273,7 +286,10 @@ export default function App() {
               title="UVent"
               desc="Campus events dashboard with filtering and search. Built as a software engineering project with reusable React UI components."
               tech={["React", "Dashboard UI", "Filters/Search", "Team Project"]}
-              links={{ live: "", code: "" }}
+              links={{
+                live: "https://kcalle012.github.io/Software-Engineering-Project/",
+                code: "https://github.com/saaladdin/Software-Engineering-Project",
+              }}
             />
           </div>
 
@@ -284,7 +300,9 @@ export default function App() {
               title="Symptom Checker"
               desc="AI-powered symptom analysis with structured severity + confidence scoring using a React UI and FastAPI backend."
               tech={["React", "FastAPI", "Python", "LLM", "JSON"]}
-              links={{ live: "", code: "" }}
+              links={{
+                code: "https://github.com/HamzahJoestar/symptom-checker",
+              }}
             />
 
             <ProjectCard
@@ -292,7 +310,9 @@ export default function App() {
               title="Boo-Do"
               desc="Kanban-style productivity app with AI-assisted suggestions, built with React and FastAPI."
               tech={["React", "Vite", "Tailwind", "UX"]}
-              links={{ live: "", code: "" }}
+              links={{
+                code: "https://github.com/HamzahJoestar/kanban-ghost",
+              }}
             />
 
             <ProjectCard
@@ -300,14 +320,18 @@ export default function App() {
               title="Monch.club"
               desc="Recipe discovery app with category filtering and search built during HackRU."
               tech={["Flask", "Python", "Web UI", "Hackathon Winner"]}
-              links={{ live: "", code: "" }}
+              links={{
+                code: "https://github.com/HamzahJoestar/yummyhackyr24",
+              }}
             />
             <ProjectCard
               image="/qare.png"
               title="Qare"
               desc="AI-powered mental health chatbot designed for LGBTQ+ communities. Built with React, SCSS, and a FastAPI backend with multi-turn GPT conversations."
               tech={["React", "FastAPI", "SCSS", "AI", "Hackathon Winner"]}
-              links={{ live: "", code: "" }}
+              links={{
+                code: "https://github.com/zepion1/RTGHACK",
+              }}
             />
           </div>
 
