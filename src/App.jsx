@@ -97,7 +97,7 @@ function ProjectCard({
                 target="_blank"
                 rel="noreferrer"
               >
-                Code
+                View Code
               </a>
             )}
           </div>
@@ -270,7 +270,7 @@ useEffect(() => {
             <div>
               <div className="text-xs font-semibold uppercase tracking-wider text-slate-500"></div>
               <h2 className="text-2xl font-semibold tracking-tight">
-                Things I’ve Built
+                My Featured Projects
               </h2>
               <p className="mt-1 text-sm text-slate-700">
                 A few projects that show how I build and ship.
