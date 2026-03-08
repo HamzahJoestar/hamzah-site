@@ -160,6 +160,9 @@ useEffect(() => {
             Home<span className="text-blue-600"></span>
           </a>
           <div className="flex items-center gap-5 text-sm text-slate-700">
+            <a className="hover:text-blue-600" href="#about">
+              About
+            </a>
             <a className="hover:text-blue-600" href="#projects">
               Projects
             </a>
@@ -263,8 +266,45 @@ useEffect(() => {
             </div>
           </div>
         </section>
-
         {/* ABOUT */}
+        <section id="about" className="mt-16">
+          <div
+            className="flex flex-col items-center gap-8 rounded-2xl border border-slate-200 bg-white/60 p-8 backdrop-blur sm:flex-row"
+            data-reveal
+          >
+            <img
+              src="/hamzah.png"
+              alt="Hamzah Muhammad"
+              className="h-80 w-80 rounded-full border-4 border-white object-cover shadow"
+            />
+
+            <div className="max-w-xl">
+              <h2 className="text-2xl font-semibold tracking-tight">About Me</h2>
+
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                I’m Hamzah Muhammad, a software engineer focused on building
+                practical, polished web apps that connect strong backend logic
+                with clean frontend experiences.
+              </p>
+
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                I recently graduated from Montclair State University with a B.S.
+                in Computer Science and enjoy working across the stack with
+                React, FastAPI, Python, and SQL. A lot of my work comes from
+                hackathons, team projects, and shipping ideas into usable
+                products.
+              </p>
+
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                I’m especially interested in full-stack development, AI-powered
+                tools, and product experiences that feel thoughtful, useful, and
+                real.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS */}
         <section id="projects" className="mt-16">
           <div className="flex items-end justify-between gap-4" data-reveal>
             <div>
